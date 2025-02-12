@@ -7,26 +7,46 @@ body{
     overflow-x: hidden;
 }
 .boody {
-    height: 100vh;
-    width: 100vw;
-    margin: 0;
-    padding: 0;
-    background: radial-gradient(circle at 50% 50%, #444444, #444444, #404040, #383838, #292929, #1a1a1a, #121212, #0f0f0f, #0e0e0e);
-
+    width: 100%;
+    min-height: 100vh;
+    background: radial-gradient(circle at 50% 50%, 
+        #444444, #444444, #404040, #383838, 
+        #292929, #1a1a1a, #121212, #0f0f0f, 
+        #0e0e0e);
+    color: white;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    overflow-x: auto; /* Allows proper content scaling */
 }
-a,li{
-    font-weight: 500;
-    font-size:24px;
-    color:#ffffff;
-    text-decoration: none;
-    transition: 0.5s;
-}
 
-header{
+/* Header */
+header {
+    width: 100%;
+    max-width: 1200px;
     display: flex;
     justify-content: space-between;
-    align-items:center;
-    padding:30px 7.5%;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.image {
+    width: 120px;
+    max-width: 100%;
+}
+
+.navi ul {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.navi ul li {
+    display: inline;
 }
 .a_slide1::after{
     content:'';
@@ -42,49 +62,50 @@ header{
     width:100%;
     font-size: 30px;
 }
-
-.image{
-    width:300px;
-    height: auto;
+.navi ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    white-space: nowrap; /* Prevents text from wrapping awkwardly */
 }
 
-.navi{
-    list-style: none;
-}
-.navi li{
-    display:inline-block;
-    padding:0px 20px;
-}
-
-.content{
-    display:flex;
-    justify-content: space-evenly;
-    padding-top: 80px;
-
-}
-.Heading{
-    font-size: 100px;
-    color:#ffffff;
-    width:850px;
-    word-wrap: normal;
-    padding-bottom: 20px;
+/* Main Content Layout */
+.content {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Prevents content from overflowing */
+    margin-top: 60px;
 }
 
-.Heading3{
-    font-size: 45px;
-    color:#ffffff;
-    width: 850px;
-    word-wrap:normal;
-    padding-bottom: 80px;
-}
-.image2{
-    width:450px;
-    height:fit-content;
-}
-.titli{
-    width:850px;
+/* Left Section - Text */
+.titli {
+    width: 50%;
+    min-width: 300px;
+    flex: 1; /* Allows it to shrink if needed */
+    padding-right: 20px;
 }
 
+.Heading {
+    font-size: 5.4rem;
+    font-weight: bold;
+    line-height: 1.2;
+    padding-bottom: 30px;
+    word-wrap: break-word; /* Ensures text doesn't overflow */
+}
+
+.Heading3 {
+    font-size: 2.4rem;
+    margin-top: 10px;
+    font-weight: 500;
+    padding-bottom: 30px;
+    word-wrap: break-word;
+}
+
+/* Button Styling */
 .button1{
     border-radius: 10px;
     border-width: 1px;
@@ -100,11 +121,40 @@ header{
     overflow: hidden;
     transition: 0.5s;
 }
-
-
 .button1:hover{
         background-color: white;
         color: #000000;
+}
+
+/* Right Section - Image */
+.image2 {
+    width: 40%;
+    max-width: 430px;
+    min-width: 300px;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+    flex: 1;
+}
+
+/* Ensure No Overflow */
+@media (max-width: 900px) {
+    .content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .titli {
+        width: 100%;
+        padding-right: 0;
+    }
+
+    .image2 {
+        width: 70%;
+        max-width: 400px;
+        min-width: 280px;
+        margin-top: 20px;
+    }
 }
 
 .slide2 {
@@ -141,6 +191,9 @@ header{
 
 .header_slide2{
     margin-bottom: 40px;
+    width: 100%;
+    max-width: 1200px;
+    display: block;
 }
 
 .header1_slide2{
