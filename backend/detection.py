@@ -3,6 +3,8 @@ import os
 import json
 from datetime import datetime
 from ultralytics import YOLO
+import base64
+from io import BytesIO
 
 # Base directory (script location)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -24,9 +26,8 @@ model = YOLO(MODEL_PATH)
 
 # Define class labels
 CLASSES = ["Helmet", "Gloves", "Vest", "Boots", "Goggles", "None", "Person"]
-
 def process_image(image_path):
-    """Process an image and save detection results."""
+    """Process an image and return Base64 image and JSON report."""
     if not os.path.exists(image_path):
         raise FileNotFoundError(f"Input image not found: {image_path}")
 
@@ -34,7 +35,7 @@ def process_image(image_path):
     results = model(img)
 
     detected_items = {}
-    
+
     for i, box in enumerate(results[0].boxes):
         xmin, ymin, xmax, ymax = box.xyxy[0]  # Bounding box coordinates
         cls = int(box.cls[0])  # Class index
@@ -45,17 +46,18 @@ def process_image(image_path):
             detected_items[unique_id] = []
         
         detected_items[unique_id].append(label)
-        
+
         cv2.rectangle(img, (int(xmin), int(ymin)), (int(xmax), int(ymax)), (0, 255, 0), 2)
         cv2.putText(img, label, (int(xmin), int(ymin) - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
-    # Save processed image
-    output_path = os.path.join(PROCESSED_DIR, os.path.basename(image_path))
-    cv2.imwrite(output_path, img)
+    # Convert processed image to Base64
+    _, buffer = cv2.imencode('.jpg', img)
+    base64_image = base64.b64encode(buffer).decode("utf-8")
 
-    # Generate and save detection report
-    report_path = generate_report(detected_items, image_path)
-    return output_path, report_path
+    # Generate JSON report
+    report_json = json.dumps(detected_items, indent=4)
+
+    return base64_image, report_json
 
 def process_video(video_path):
     """Process a video and save detection results frame by frame."""
@@ -116,7 +118,7 @@ def generate_report(detected_items, file_path):
     
     return report_path
 
-# Example Usage
+
 if __name__ == "__main__":
     # To process an image
     img_output, img_report = process_image("backend/test_images/sample.jpg")

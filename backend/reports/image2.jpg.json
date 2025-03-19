@@ -1,0 +1,39 @@
+{
+    "timestamp": "2025-03-19 16:22:05.489010",
+    "file": "image2.jpg",
+    "detections": {
+        "Person_0": [
+            "Helmet"
+        ],
+        "Person_1": [
+            "Person"
+        ],
+        "Person_2": [
+            "Person"
+        ],
+        "Person_3": [
+            "Helmet"
+        ],
+        "Person_4": [
+            "Person"
+        ],
+        "Person_5": [
+            "Helmet"
+        ],
+        "Person_6": [
+            "Vest"
+        ],
+        "Person_7": [
+            "Goggles"
+        ],
+        "Person_8": [
+            "Vest"
+        ],
+        "Person_9": [
+            "Vest"
+        ],
+        "Person_10": [
+            "Goggles"
+        ]
+    }
+}
